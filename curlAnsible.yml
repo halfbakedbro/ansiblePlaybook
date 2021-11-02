@@ -11,3 +11,10 @@ tasks:
   
   - name: Append static content to download file
   local_action: shell cat static.yml download.yml >> tmp && mv tmp download.yml
+  
+  - name: Change boolean value
+    replace:
+      path: download.yml
+      regexp: "ApiVersion: false"
+      replace: "ApiVersion: true"
+    delegate_to: localhost
