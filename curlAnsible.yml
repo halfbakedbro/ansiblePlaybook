@@ -1,0 +1,13 @@
+tasks:
+  - name: Get the token by Curl
+  local_action: command curl https://reqbin.com/echo/get/json
+  register: token
+  
+  - debug: msg="{{ token.stdout}}"
+  
+  - name: Download yml file
+  local_action: command curl -b {{ item }} https://www.xxx.com/
+  with_items: token.stdout
+  
+  - name: Append static content to download file
+  local_action: shell cat static.yml download.yml >> tmp && mv tmp download.yml
